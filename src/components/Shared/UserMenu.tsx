@@ -20,7 +20,7 @@ const getInitials = (name: string) =>
 
 const UserMenu = () => {
 	const auth = useAuth();
-	const user = auth?.user;
+	const user = auth.user;
 
 	if (!user) return null;
 
@@ -41,7 +41,7 @@ const UserMenu = () => {
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
 					className="cursor-pointer gap-2 text-destructive focus:text-destructive"
-					onSelect={() => auth?.logout()}
+					onSelect={() => auth.logout()}
 				>
 					<LogOut className="size-4" />
 					Log out

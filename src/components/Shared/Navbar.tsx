@@ -30,9 +30,9 @@ const Navbar = () => {
 
 				{/* Auth controls */}
 				<div className="shrink-0">
-					{auth?.loading ? (
-						<Loader2 className="text-muted-foreground size-5 animate-spin" />
-					) : auth?.user ? (
+				{auth.loading ? (
+					<Loader2 className="text-muted-foreground size-5 animate-spin" />
+				) : auth.user ? (
 						<UserMenu />
 					) : (
 						<LoginDropdown />
