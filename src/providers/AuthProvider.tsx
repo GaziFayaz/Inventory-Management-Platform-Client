@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
@@ -16,7 +17,7 @@ interface AuthContextType {
 	/** OAuth error code forwarded from the backend redirect (e.g. "auth.provider_failed", "auth.blocked") */
 	authError: string | null;
 	/** Redirect the browser to the provider's OAuth page. No return value — this is a full-page navigation. */
-	login: (provider: "google" | "facebook") => void;
+	login: (provider: "Google" | "Facebook") => void;
 	logout: () => Promise<void>;
 }
 
@@ -37,7 +38,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	 * Redirect the browser to the backend OAuth entry point.
 	 * The backend ultimately redirects back to `FrontendUrl` (or `FrontendUrl?error=…`).
 	 */
-	const login = (provider: "google" | "facebook") => {
+	const login = (provider: "Google" | "Facebook") => {
 		window.location.href = `${import.meta.env.VITE_SERVER_URL}/auth/login/${provider}`;
 	};
 

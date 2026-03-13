@@ -49,14 +49,14 @@ const LoginDropdown = () => {
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
 					className="cursor-pointer gap-2"
-					onSelect={() => auth.login("google")}
+					onSelect={() => auth.login("Google")}
 				>
 					<GoogleIcon />
 					Continue with Google
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className="cursor-pointer gap-2"
-					onSelect={() => auth.login("facebook")}
+					onSelect={() => auth.login("Facebook")}
 				>
 					<FacebookIcon />
 					Continue with Facebook
