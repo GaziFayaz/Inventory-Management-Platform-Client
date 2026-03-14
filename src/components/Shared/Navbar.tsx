@@ -15,7 +15,7 @@ const Navbar = () => {
 					to="/"
 					className="text-foreground shrink-0 text-lg font-semibold tracking-tight"
 				>
-					Inventario
+					Home
 				</Link>
 
 				{/* Global search */}
