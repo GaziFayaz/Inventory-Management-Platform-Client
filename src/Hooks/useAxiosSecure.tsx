@@ -11,7 +11,6 @@ const useAxiosSecure = () => {
 	const { logout } = useAuth();
 	const navigate = useNavigate();
 
-	// intercepts 401 and 403 status codes
 	axiosSecure.interceptors.response.use(
 		(response) => {
 			return response;
@@ -19,10 +18,9 @@ const useAxiosSecure = () => {
 		async (error) => {
 			const status = error.response?.status;
 
-			// for 401 and 403 logout the user and move the user to the login page
 			if (status === 401 || status === 403) {
 				await logout();
-				navigate("/login");
+				navigate("/");
 			}
 		}
 	);
