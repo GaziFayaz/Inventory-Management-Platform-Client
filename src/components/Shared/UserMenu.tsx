@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import useAuth from "@/Hooks/useAuth";
+import { useTranslation } from "react-i18next";
 
 /** Returns up to two uppercase initials from a display name. */
 const getInitials = (name: string) =>
@@ -21,6 +22,7 @@ const getInitials = (name: string) =>
 const UserMenu = () => {
 	const auth = useAuth();
 	const user = auth.user;
+	const { t } = useTranslation();
 
 	if (!user) return null;
 
@@ -44,7 +46,7 @@ const UserMenu = () => {
 					onSelect={() => auth.logout()}
 				>
 					<LogOut className="size-4" />
-					Log out
+					{t("auth.logout")}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

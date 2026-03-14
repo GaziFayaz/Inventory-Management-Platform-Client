@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import useAuth from "@/Hooks/useAuth";
+import { useTranslation } from "react-i18next";
 
 const GoogleIcon = () => (
 	<svg viewBox="0 0 24 24" className="size-4" aria-hidden="true">
@@ -38,28 +39,29 @@ const FacebookIcon = () => (
 
 const LoginDropdown = () => {
 	const auth = useAuth();
+	const { t } = useTranslation();
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="default">Log in</Button>
+				<Button variant="default">{t("auth.login")}</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-52">
-				<DropdownMenuLabel>Choose a provider</DropdownMenuLabel>
+				<DropdownMenuLabel>{t("auth.chooseProvider")}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
 					className="cursor-pointer gap-2"
 					onSelect={() => auth.login("Google")}
 				>
 					<GoogleIcon />
-					Continue with Google
+					{t("auth.continueWithGoogle")}
 				</DropdownMenuItem>
 				<DropdownMenuItem
 					className="cursor-pointer gap-2"
 					onSelect={() => auth.login("Facebook")}
 				>
 					<FacebookIcon />
-					Continue with Facebook
+					{t("auth.continueWithFacebook")}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

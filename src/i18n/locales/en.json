@@ -1,0 +1,21 @@
+{
+  "nav": {
+    "home": "Home",
+    "searchPlaceholder": "Search inventories, items…",
+    "language": "Language"
+  },
+  "language": {
+    "en": "English",
+    "es": "Spanish"
+  },
+  "auth": {
+    "login": "Log in",
+    "chooseProvider": "Choose a provider",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithFacebook": "Continue with Facebook",
+    "logout": "Log out"
+  },
+  "home": {
+    "title": "Home"
+  }
+}
