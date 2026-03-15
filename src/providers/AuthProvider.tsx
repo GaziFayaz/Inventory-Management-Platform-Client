@@ -1,14 +1,15 @@
 /* eslint-disable react-refresh/only-export-components */
-import axios from "axios";
-import { createContext, useState, useEffect } from "react";
-import type { ReactNode } from "react";
+import axios from "axios"
+import { createContext, useState, useEffect } from "react"
+import type { ReactNode } from "react"
+import { showApiErrorToast } from "@/lib/apiError"
 
 // Axios instance used only inside AuthProvider to avoid circular dependency
 // (useAxiosSecure → useAuth → AuthContext → AuthProvider)
 const authAxios = axios.create({
-	baseURL: import.meta.env.VITE_SERVER_URL,
-	withCredentials: true,
-});
+  baseURL: import.meta.env.VITE_SERVER_URL,
+  withCredentials: true,
+})
 
 interface AuthContextType {
   user: User | null
@@ -66,6 +67,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const errorParam = params.get("error")
     if (errorParam) {
       setAuthError(errorParam)
+      showApiErrorToast({
+        response: { data: { errorCode: errorParam, message: errorParam } },
+      })
       params.delete("error")
       const cleanSearch = params.toString()
       window.history.replaceState(

@@ -17,5 +17,31 @@
   },
   "home": {
     "title": "Inicio"
+  },
+  "errors": {
+    "auth": {
+      "unauthorized": "Por favor, inicie sesión para continuar.",
+      "forbidden": "No tienes acceso para realizar esta acción.",
+      "blocked": "Su cuenta ha sido bloqueada.",
+      "provider_failed": "El proveedor de autenticación no devolvió información de inicio de sesión válida."
+    },
+    "conflict": {
+      "optimistic_lock": "Alguien más ha editado esto. Por favor, recargue y vuelva a intentarlo."
+    },
+    "item": {
+      "custom_id_duplicate": "Este ID personalizado ya está en uso en este inventario."
+    },
+    "admin": {
+      "cannot_delete_self": "No puedes eliminar tu propia cuenta de administrador."
+    },
+    "user": {
+      "not_found": "Usuario no encontrado."
+    },
+    "inventory": {
+      "not_found": "Inventario no encontrado."
+    },
+    "server_error": "Algo salió mal. Por favor, vuelva a intentarlo.",
+    "network_error": "Error de red, por favor verifique su conexión.",
+    "error": "Ocurrió un error inesperado."
   }
 }

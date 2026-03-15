@@ -17,5 +17,31 @@
   },
   "home": {
     "title": "Home"
+  },
+  "errors": {
+    "auth": {
+      "unauthorized": "Please log in to continue.",
+      "forbidden": "You don't have access to perform this action.",
+      "blocked": "Your account has been blocked.",
+      "provider_failed": "Authentication provider failed to return valid login info."
+    },
+    "conflict": {
+      "optimistic_lock": "Someone else has edit this. Please reload and try again."
+    },
+    "item": {
+      "custom_id_duplicate": "This Custom ID is already taken in this inventory."
+    },
+    "admin": {
+      "cannot_delete_self": "You cannot delete your own admin account."
+    },
+    "user": {
+      "not_found": "User not found."
+    },
+    "inventory": {
+      "not_found": "Inventory not found."
+    },
+    "server_error": "Something went wrong. Please try again.",
+    "network_error": "Network error, please check your connection.",
+    "error": "An expected error occurred."
   }
 }
