@@ -202,7 +202,7 @@ Per-field metadata:
 * Don’t do full DB scans with raw `SELECT *`. 
 * Don’t upload images to your web server or database (use cloud storage). 
 * Don’t execute DB queries inside loops. 
-* Don’t add buttons in table rows. 
+* Don’t add buttons in table rows. Use multi-selection (checkboxes) and a unified action toolbar for operations on selected items.
 * Use ready-made components (Markdown renderer, drag-drop uploader, tag input, tag cloud). 
 
 ---
@@ -247,7 +247,7 @@ Per-field metadata:
   * Write-access users: only Items + Discussion in edit mode 
 * Items tab:
 
-  * table representation, no row buttons  
+  * table representation, no row buttons (use multi-selection + action toolbar instead)
   * add/edit/delete item flows (based on access)  
 * Discussion tab:
 
@@ -281,7 +281,7 @@ Per-field metadata:
 
 **Admin UI**
 
-* User list with view/block/unblock/delete + add/remove admin role; ensure self-demotion is possible 
+* User list with view/block/unblock/delete + add/remove admin role; ensure self-demotion is possible (must use multi-selection checkboxes and an action toolbar, no row buttons)
 
 ---
 

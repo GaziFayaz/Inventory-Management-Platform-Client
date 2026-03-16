@@ -42,6 +42,11 @@
     },
     "server_error": "Algo salió mal. Por favor, vuelva a intentarlo.",
     "network_error": "Error de red, por favor verifique su conexión.",
-    "error": "Ocurrió un error inesperado."
-  }
+    "error": "Ocurrió un error inesperado."  },
+  "admin": {
+    "usersBlocked": "Usuarios bloqueados con exito.",
+    "usersUnblocked": "Usuarios desbloqueados con exito.",
+    "rolesAdded": "Rol de Administrador concedido con exito.",
+    "rolesRemoved": "Rol de Administrador eliminado con exito.",
+    "usersDeleted": "Los usuarios han sido eliminados permanentemente."  }
 }

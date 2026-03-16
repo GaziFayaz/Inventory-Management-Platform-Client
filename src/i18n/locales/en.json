@@ -18,6 +18,13 @@
   "home": {
     "title": "Home"
   },
+  "admin": {
+    "usersBlocked": "Successfully blocked users.",
+    "usersUnblocked": "Successfully unblocked users.",
+    "rolesAdded": "Successfully granted Admin role to users.",
+    "rolesRemoved": "Successfully removed Admin role.",
+    "usersDeleted": "Users have been permanently deleted."
+  },
   "errors": {
     "auth": {
       "unauthorized": "Please log in to continue.",
