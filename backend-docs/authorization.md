@@ -227,7 +227,8 @@ if (!auth.Succeeded) return Forbid();
 | `POST /auth/logout` | `"Authenticated"` (attribute) |
 | `GET /auth/me` | `"Authenticated"` (attribute) |
 | `POST /inventories` | `"Authenticated"` (attribute) |
-| `PUT /inventories/{id}/settings\|fields\|custom-id\|access` | `"OwnerOrAdmin"` (resource-based) |
+| `PUT /inventories/{id}/settings` | `"OwnerOrAdmin"` (resource-based) |
+| `POST /inventories/{id}/access/add`, `POST /inventories/{id}/access/remove` | `"OwnerOrAdmin"` (resource-based) |
 | `DELETE /inventories/{id}` | `"OwnerOrAdmin"` (resource-based) |
 | `POST /inventories/{id}/items` | `"InventoryWrite"` (resource-based) |
 | `PUT /items/{id}`, `DELETE /items/{id}` | `"InventoryWrite"` (resource-based) |

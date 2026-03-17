@@ -2,7 +2,8 @@
   "nav": {
     "home": "Home",
     "searchPlaceholder": "Search inventories, items…",
-    "language": "Language"
+    "language": "Language",
+    "inventories": "Inventories"
   },
   "language": {
     "en": "English",
@@ -17,6 +18,48 @@
   },
   "home": {
     "title": "Home"
+  },
+  "inventories": {
+    "pageTitle": "My Inventories",
+    "pageHint": "Manage inventories you own and inventories you can write to.",
+    "createNew": "Create New Inventory",
+    "owned": "Owned Inventories",
+    "withAccess": "Inventories With Access",
+    "withAccessPending": "Access list endpoint pending",
+    "loading": "Loading inventories...",
+    "loadError": "Failed to load inventories.",
+    "table": {
+      "title": "Title",
+      "description": "Description",
+      "visibility": "Visibility",
+      "emptyDescription": "No description"
+    },
+    "visibility": {
+      "public": "Public",
+      "private": "Private"
+    },
+    "createPageTitle": "Create Inventory",
+    "createPageHint": "Fill in basic inventory details.",
+    "createSuccess": "Inventory created successfully.",
+    "inventoryPageTitle": "Inventory",
+    "inventoryPageHint": "Inventory details page implementation is next.",
+    "form": {
+      "title": "Title",
+      "titlePlaceholder": "Enter inventory title",
+      "titleRequired": "Title is required.",
+      "description": "Description (Markdown)",
+      "descriptionPlaceholder": "Write a short markdown description",
+      "categoryId": "Category ID",
+      "categoryIdPlaceholder": "Optional numeric category id",
+      "tags": "Tags",
+      "tagsPlaceholder": "Comma separated tags",
+      "image": "Image",
+      "imageHint": "Optional image file. The backend uploads it to Cloudinary.",
+      "isPublic": "Allow all authenticated users to add items",
+      "create": "Create Inventory",
+      "creating": "Creating...",
+      "cancel": "Cancel"
+    }
   },
   "admin": {
     "usersBlocked": "Successfully blocked users.",

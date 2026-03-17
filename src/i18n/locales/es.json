@@ -2,7 +2,8 @@
   "nav": {
     "home": "Inicio",
     "searchPlaceholder": "Buscar inventarios, ítems…",
-    "language": "Idioma"
+    "language": "Idioma",
+    "inventories": "Inventarios"
   },
   "language": {
     "en": "Inglés",
@@ -17,6 +18,48 @@
   },
   "home": {
     "title": "Inicio"
+  },
+  "inventories": {
+    "pageTitle": "Mis Inventarios",
+    "pageHint": "Administra los inventarios que posees y los que puedes editar.",
+    "createNew": "Crear Nuevo Inventario",
+    "owned": "Inventarios Propios",
+    "withAccess": "Inventarios con Acceso",
+    "withAccessPending": "Endpoint de acceso pendiente",
+    "loading": "Cargando inventarios...",
+    "loadError": "No se pudieron cargar los inventarios.",
+    "table": {
+      "title": "Título",
+      "description": "Descripción",
+      "visibility": "Visibilidad",
+      "emptyDescription": "Sin descripción"
+    },
+    "visibility": {
+      "public": "Público",
+      "private": "Privado"
+    },
+    "createPageTitle": "Crear Inventario",
+    "createPageHint": "Completa los detalles básicos del inventario.",
+    "createSuccess": "Inventario creado con éxito.",
+    "inventoryPageTitle": "Inventario",
+    "inventoryPageHint": "La implementación de la página de inventario es el siguiente paso.",
+    "form": {
+      "title": "Título",
+      "titlePlaceholder": "Ingrese el título del inventario",
+      "titleRequired": "El título es obligatorio.",
+      "description": "Descripción (Markdown)",
+      "descriptionPlaceholder": "Escribe una breve descripción en markdown",
+      "categoryId": "ID de Categoría",
+      "categoryIdPlaceholder": "ID numérico de categoría (opcional)",
+      "tags": "Etiquetas",
+      "tagsPlaceholder": "Etiquetas separadas por comas",
+      "image": "Imagen",
+      "imageHint": "Archivo de imagen opcional. El backend lo sube a Cloudinary.",
+      "isPublic": "Permitir que todos los usuarios autenticados agreguen ítems",
+      "create": "Crear Inventario",
+      "creating": "Creando...",
+      "cancel": "Cancelar"
+    }
   },
   "errors": {
     "auth": {

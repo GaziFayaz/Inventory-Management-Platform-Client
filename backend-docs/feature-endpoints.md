@@ -303,6 +303,261 @@ Removes the target users from the `"Admin"` role. Self-demotion is explicitly al
 
 ---
 
+## Inventories (`/inventories`)
+
+Simple inventory CRUD for backend MVP. Custom ID functionality is intentionally excluded.
+
+### Architecture
+
+| Layer | File | Responsibility |
+|---|---|---|
+| Controller | `Features/Inventory/InventoriesController.cs` | HTTP binding, auth checks, resource-based authorization |
+| Service interface | `Features/Inventory/IInventoryService.cs` | Contract |
+| Service impl | `Features/Inventory/InventoryService.cs` | CRUD logic, tags, access list updates, optimistic locking |
+| DTOs | `Contracts/Inventory/*.cs` | Request/response contracts |
+
+---
+
+### `POST /inventories`
+
+Creates an inventory owned by the current user.
+
+**Auth policy:** `"Authenticated"`
+
+**Content-Type:** `multipart/form-data`
+
+**Form fields**
+
+| Name | Type | Required | Description |
+|---|---|---|---|
+| `title` | `string` | Yes | Inventory title |
+| `descriptionMd` | `string?` | No | Markdown description |
+| `imageFile` | `file?` | No | Uploaded image file |
+| `categoryId` | `int?` | No | Category ID |
+| `isPublic` | `bool` | Yes | Public/private write access toggle |
+| `tagNames` | `string[]` | No | Repeat field for multiple tags |
+
+When `imageFile` is provided, backend uploads it to Cloudinary and stores the resulting URL in `imageUrl`.
+
+**Success response:** `201 Created` with inventory DTO.
+
+**Error responses**
+
+| Condition | Status | `errorCode` |
+|---|---|---|
+| Empty title | 400 | `inventory.invalid_title` |
+| Unknown category | 400 | `inventory.category_not_found` |
+| Not authenticated | 401 | `auth.unauthorized` |
+| Blocked account | 403 | `auth.blocked` |
+
+---
+
+### `GET /inventories`
+
+Returns paginated inventories. Optional owner filter.
+
+**Auth policy:** none (anonymous)
+
+**Query parameters**
+
+| Name | Type | Default | Description |
+|---|---|---|---|
+| `ownerId` | `string?` | — | Return only inventories owned by this user |
+| `page` | `int` | `1` | 1-based page number |
+| `pageSize` | `int` | `20` | Number of rows to return |
+
+**Success response:** paged `InventoryDto[]` in `data.items`.
+
+---
+
+### `GET /inventories/{id}`
+
+Returns one inventory by ID.
+
+**Auth policy:** none (anonymous)
+
+**Error responses**
+
+| Condition | Status | `errorCode` |
+|---|---|---|
+| Inventory not found | 404 | `inventory.not_found` |
+
+---
+
+### `GET /inventories/{id}/access`
+
+Returns current write-access email list and latest optimistic-lock version.
+
+**Auth policy:** `"OwnerOrAdmin"` (resource-based)
+
+**Success response:** `InventoryAccessResponse`
+
+**Error responses**
+
+| Condition | Status | `errorCode` |
+|---|---|---|
+| Inventory not found | 404 | `inventory.not_found` |
+| Not owner/admin | 403 | `auth.forbidden` |
+
+---
+
+### `GET /inventories/{id}/fields`
+
+Returns inventory custom-field definitions.
+
+**Auth policy:** none (anonymous)
+
+**Success response:** `InventoryCustomFieldsResponse`
+
+**Error responses**
+
+| Condition | Status | `errorCode` |
+|---|---|---|
+| Inventory not found | 404 | `inventory.not_found` |
+
+---
+
+### `PUT /inventories/{id}/fields`
+
+Replaces custom-field definitions with optimistic locking.
+
+**Auth policy:** `"OwnerOrAdmin"` (resource-based)
+
+**Request body**
+```json
+{
+  "fields": [
+    {
+      "type": "String",
+      "slot": 1,
+      "enabled": true,
+      "title": "Serial",
+      "description": "Serial number",
+      "showInTable": true,
+      "orderIndex": 1
+    }
+  ],
+  "version": 12345
+}
+```
+
+**Error responses**
+
+| Condition | Status | `errorCode` |
+|---|---|---|
+| Inventory not found | 404 | `inventory.not_found` |
+| Duplicate `(type, slot)` or invalid slot | 400 | `error` |
+| Stale version (optimistic lock) | 409 | `conflict.optimistic_lock` |
+| Not owner/admin | 403 | `auth.forbidden` |
+
+---
+
+### `PUT /inventories/{id}/settings`
+
+Updates core settings and tags with optimistic locking.
+
+**Auth policy:** `"OwnerOrAdmin"` (resource-based)
+
+**Request body**
+```json
+{
+  "title": "Updated title",
+  "descriptionMd": "Updated markdown",
+  "imageUrl": "https://example.com/new-image.png",
+  "categoryId": 2,
+  "isPublic": true,
+  "tagNames": ["it", "asset"],
+  "version": 12345
+}
+```
+
+**Error responses**
+
+| Condition | Status | `errorCode` |
+|---|---|---|
+| Inventory not found | 404 | `inventory.not_found` |
+| Empty title | 400 | `inventory.invalid_title` |
+| Unknown category | 400 | `inventory.category_not_found` |
+| Stale version (optimistic lock) | 409 | `conflict.optimistic_lock` |
+| Not owner/admin | 403 | `auth.forbidden` |
+
+---
+
+### `POST /inventories/{id}/access/add`
+
+Adds write-access users by email. Requires optimistic-lock version.
+
+**Auth policy:** `"OwnerOrAdmin"` (resource-based)
+
+**Request body**
+```json
+{
+  "emails": ["user1@example.com", "user2@example.com"],
+  "version": 12345
+}
+```
+
+**Success response:** updated access email list and new `version`.
+
+**Error responses**
+
+| Condition | Status | `errorCode` |
+|---|---|---|
+| Inventory not found | 404 | `inventory.not_found` |
+| One or more emails not found | 404 | `inventory.access_user_not_found` |
+| Stale version (optimistic lock) | 409 | `conflict.optimistic_lock` |
+| Not owner/admin | 403 | `auth.forbidden` |
+
+---
+
+### `POST /inventories/{id}/access/remove`
+
+Removes write-access users by email. Requires optimistic-lock version.
+
+**Auth policy:** `"OwnerOrAdmin"` (resource-based)
+
+**Request body**
+```json
+{
+  "emails": ["user1@example.com"],
+  "version": 12345
+}
+```
+
+**Success response:** updated access email list and new `version`.
+
+**Error responses**
+
+| Condition | Status | `errorCode` |
+|---|---|---|
+| Inventory not found | 404 | `inventory.not_found` |
+| One or more emails not found | 404 | `inventory.access_user_not_found` |
+| Stale version (optimistic lock) | 409 | `conflict.optimistic_lock` |
+| Not owner/admin | 403 | `auth.forbidden` |
+
+---
+
+### `DELETE /inventories/{id}`
+
+Deletes an inventory (cascade rules handle dependents).
+
+**Auth policy:** `"OwnerOrAdmin"` (resource-based)
+
+**Success response**
+
+```json
+{ "success": true, "status": 200, "data": null }
+```
+
+**Error responses**
+
+| Condition | Status | `errorCode` |
+|---|---|---|
+| Inventory not found | 404 | `inventory.not_found` |
+| Not owner/admin | 403 | `auth.forbidden` |
+
+---
+
 ## Configuration reference
 
 | Key | Source | Description |
@@ -313,3 +568,7 @@ Removes the target users from the `"Admin"` role. Self-demotion is explicitly al
 | `Authentication:Google:ClientSecret` | User secrets / env | Google OAuth client secret |
 | `Authentication:Facebook:AppId` | User secrets / env | Facebook OAuth app ID |
 | `Authentication:Facebook:AppSecret` | User secrets / env | Facebook OAuth app secret |
+| `Cloudinary:CloudName` | User secrets / env | Cloudinary cloud name |
+| `Cloudinary:ApiKey` | User secrets / env | Cloudinary API key |
+| `Cloudinary:ApiSecret` | User secrets / env | Cloudinary API secret |
+| `Cloudinary:Folder` | appsettings / env | Cloudinary target folder for inventory images |

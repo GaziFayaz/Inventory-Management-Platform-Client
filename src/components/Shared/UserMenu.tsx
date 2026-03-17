@@ -7,9 +7,10 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut } from "lucide-react";
+import { FolderKanban, LogOut } from "lucide-react";
 import useAuth from "@/Hooks/useAuth";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 /** Returns up to two uppercase initials from a display name. */
 const getInitials = (name: string) =>
@@ -23,6 +24,7 @@ const UserMenu = () => {
 	const auth = useAuth();
 	const user = auth.user;
 	const { t } = useTranslation();
+	const navigate = useNavigate();
 
 	if (!user) return null;
 
@@ -40,6 +42,14 @@ const UserMenu = () => {
 						{user.email}
 					</span>
 				</DropdownMenuLabel>
+				<DropdownMenuSeparator />
+				<DropdownMenuItem
+					className="cursor-pointer gap-2"
+					onSelect={() => navigate("/user-inventories")}
+				>
+					<FolderKanban className="size-4" />
+					{t("nav.inventories")}
+				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
 					className="cursor-pointer gap-2 text-destructive focus:text-destructive"
